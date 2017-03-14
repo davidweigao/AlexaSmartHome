@@ -64,9 +64,11 @@ We are going backwards this time. Starting from the last step of the data flow t
 
 ### Circuit connection
 In order to let the Raspberry Pi send 433Mhz RF signal, we need to connect the Raspberry PI GPIO to the RF transmitter and receiver. Connect them like this:
+
 <img src="https://cloud.githubusercontent.com/assets/1740687/23884869/e5dc401c-0845-11e7-8cc2-91b6324c6c87.png" />
 
 If you're using a breadboard it should look like this:
+
 <img src="https://cloud.githubusercontent.com/assets/1740687/23885046/14687738-0847-11e7-9f48-a60bbd2f7419.png" />
 
 ### Use receiver to sniff the RF signal
