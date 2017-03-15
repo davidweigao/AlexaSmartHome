@@ -133,7 +133,59 @@ The next section will be about control the light with HTTP request.
 
 
 
-## Flask server on Raspbery Pi
+## HTTP server on Raspbery Pi
+
+The next step is to build an http server on the Raspberry pi so that you could control the RF switch over internet. [Flask](http://flask.pocoo.org/) is the framework we'll use in this project because of its lightweighted and easy to use.
+
+Firstly, install Flask using pip
+```
+pip install flask
+```
+
+Now create a file named "rf_server.py", with the code:
+
+```python
+from flask import Flask
+from flask import request
+from pi_switch import RCSwitchSender
+
+app = Flask(__name__)
+sender = RCSwitchSender()
+sender.enableTransmit(0)  # use WiringPi pin 0
+sender.setPulseLength(189)
+
+@app.route("/rf", methods=['GET'])
+def rf():
+    n = request.args.get('number')
+    number_list = n.split(',')
+    for number in number_list:
+        sender.sendDecimal(int(number), 24)
+    return ""
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)
+```
+
+Before we test on a web browser, there are something need to be done first:
+
+1. The local ip address of your Raspberry Pi, you could get it by command `ifconfig`, you could also login to your router to find this value.
+2. The default port that flask uses is `5000`, you could also change the port, see [Flask doc](http://flask.pocoo.org/docs/0.12/api/)
+3. The RF switch number, which you get from the previous section.
+4. Check if the TCP port that flask uses is open to local ethernet. (It may behind the firewall, open that specific port on your raspberry pi first)
+
+Assume your Raspberry Pi local IP address is `192.168.1.25`, port is 5000, RF switch number is 1332995
+Now find a computer(or even smart phone) that is connected to the same wifi, open the web browser and type the following in the address line:
+```
+http://192.168.1.25:5000/rf?number=1332995
+```
+Congratuations, now you could control all your RF switches using any devices that connected to your home wifi. For this project we also need to do it outside the local router, which means that you will be able to control your RF switches anywhere in the world with Internet. This may sound not that useful, but it's necessary because in the next section, we'll build a service on Amazon Lambda, so that the http request will be from Amazon. It is not hard though, we'll be using two features that most home routers should have:
+1. Address Reservation. This feature allows the router to always assign a specific IP address to a specific device (MAC address). 
+2. Port forwarding. This feature allows the router to forward any request from external port to an internal ip address.
+
+Find these two features on the manual of your router. You could also try to find them by just playing with the router app, they are very liked be under `advanced` menu.
+
+After setup the two features above, we need to find our external IP address (The Ip address that from the ISP)，simply google "what's my ip", and the first search result should be it. Now using the same URL but change the local IP address with the external one, and you should be able to control the RF switch from external. (Try it on your smart iphone with 4G)
+
 
 ## Amazon Smart Home API
 [Amazon Smart Home API](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/overviews/understanding-the-smart-home-skill-api#undefined)
