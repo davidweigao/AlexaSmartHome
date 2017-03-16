@@ -191,7 +191,64 @@ After setup the two features above, we need to find our external IP address (The
 
 ### Create an Amazon Oauth Profile
 
-In this section, we'll create an Amazon Oauth Profile for later usage. Oauth is a standard protocal for third party to get access a user's account information without exposing the user's password. For example, a lot of apps uses `Facebook Login`, or `Google Login` as their registration flow, the base of which is Oauth. In this tutorial we'll use Amazon's service as our Oauth server. 
+In this section, we'll create an Amazon Oauth Profile for later usage. [Oauth](https://en.wikipedia.org/wiki/OAuth) is a standard protocal for third party to get access a user's account information without exposing the user's password. For example, a lot of apps uses `Facebook Login`, or `Google Login` as their registration flow, the base of which is Oauth. In this tutorial we'll use Amazon's service as our Oauth server. 
+
+1. Login to [Amazon Developer Console](https://developer.amazon.com/lwa/sp/overview.html) and create a new Profile like this:
+![oauth1](https://cloud.githubusercontent.com/assets/1740687/23980105/13da204e-09d4-11e7-8e3d-e6f64ae50f45.png)
+
+2. Type in some demo text into the required field (not important for personal use), and click save:
+![oauth2](https://cloud.githubusercontent.com/assets/1740687/23980117/2b4dbefc-09d4-11e7-980d-d2d37424eb54.png)
+
+3. Copy this two values into somewhere for future use
+![oauth3](https://cloud.githubusercontent.com/assets/1740687/23980137/5a7cd302-09d4-11e7-9343-6eb179a97064.png)
+
+
+### Create an Amazon Lambda Function
+
+[Amazon Lambda](https://aws.amazon.com/lambda/) is a AWS service that provides a lightweighted serverless box for running stateless functions. This is perfect for this project since it's easy to configure and free of charge. 
+
+In this section, we'll create an empty Lambda function and configure it later.
+
+1. Login to Amazon Lambda and click `New function`, then select `Blank Function`:
+![lambda1](https://cloud.githubusercontent.com/assets/1740687/23980357/8954ee5c-09d5-11e7-8fee-a3e3379cecea.png)
+
+2. Just click `next`
+![lambda2](https://cloud.githubusercontent.com/assets/1740687/23980278/2baf3c58-09d5-11e7-978f-aa4b9708c940.png)
+
+3. On this page, do the following and click `Next`
+![lambda3](https://cloud.githubusercontent.com/assets/1740687/23980386/a94a23d0-09d5-11e7-83c0-07f2a802caa3.png)
+
+4. On this page, leave everything default and click `Create Function`:
+![lambda4](https://cloud.githubusercontent.com/assets/1740687/23980403/b5f2ddac-09d5-11e7-80c6-e03d877831a5.png)
+
+5. You've just created an empty function, the page will take you to the function for coding and configuration. We'll leave everything empty and come back later, but **copy the `ARN` somewhere for the next section.**
+![lambda6](https://cloud.githubusercontent.com/assets/1740687/23980442/db2ff8d4-09d5-11e7-9441-7160bb9eb90f.png)
+
+
+### Create an Amazon Smart Home Skill
+
+The last step is to create an `Amazon Smart Home Skill` using their API. This is like an App for the Alexa platform. 
+
+1. Login to [Amazon Developer Console](https://developer.amazon.com/edw/home.html#/) and goes to the `Alexa`, click `Get Started` on `Alexa Skills Kit`
+![smarthome0](https://cloud.githubusercontent.com/assets/1740687/23980641/4e59df90-09d7-11e7-9120-3fd6966f067e.png)
+
+2. In the Alexa Skill list page, click `Add a New Skill` on the upper left corner
+![smarthome0 5](https://cloud.githubusercontent.com/assets/1740687/23980650/62f25fae-09d7-11e7-9037-df66bdb71848.png)
+
+3. On the Skill information configuration page, select `Smart Home Skill API` and create a Name. The name will be your skill name show up in your Alexa Mobile App later.
+![smarthome2](https://cloud.githubusercontent.com/assets/1740687/23980675/922b28aa-09d7-11e7-8945-fe75013aaa64.png)
+
+4. On the Interaction Model page, just click Next since we're using the Home Skill API
+![smarthome1](https://cloud.githubusercontent.com/assets/1740687/23980664/7e06d752-09d7-11e7-9ef4-a4282e05111d.png)
+
+5. On the configuration page, do the following, use the three values that we created from previous section:
+![smarthome5](https://cloud.githubusercontent.com/assets/1740687/23980719/e7b2f0f0-09d7-11e7-8360-0eaadcee8fbd.png)
+
+
+6. On this page, check `Show this skill in the Alexa App`, since we're not going to publish this App, this enabled the developer mode and be used without publishing if you're using the same Amazon account on your Alexa.
+![smarthome4](https://cloud.githubusercontent.com/assets/1740687/23980712/d531dd7e-09d7-11e7-8204-760382cc99e7.png)
+
+After finish the above steps, just click save and skip the publishing and privacy configuration, and go back to the skills list, the created skill will be there, and you should be able to find it in your Alexa iOS/Android App by using the same Amazon account for your Echo.
 
 
 
