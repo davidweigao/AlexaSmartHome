@@ -248,7 +248,26 @@ The last step is to create an `Amazon Smart Home Skill` using their API. This is
 6. On this page, check `Show this skill in the Alexa App`, since we're not going to publish this App, this enabled the developer mode and be used without publishing if you're using the same Amazon account on your Alexa.
 ![smarthome4](https://cloud.githubusercontent.com/assets/1740687/23980712/d531dd7e-09d7-11e7-8204-760382cc99e7.png)
 
-After finish the above steps, just click save and skip the publishing and privacy configuration, and go back to the skills list, the created skill will be there, and you should be able to find it in your Alexa iOS/Android App by using the same Amazon account for your Echo.
+After finish the above steps, just click save and skip the publishing and privacy configuration, and go back to the skills list, the created skill will be there. Then do the following two things:
+
+1. Click into the created skill, and copy the Skill `ID`, which should be under the Skill Name, it should start with `amzn1.ask.skill` followed by a long UUID.
+
+2. Go to your iOS/Android Alexa App -> Skills -> My Skills, you should find the created skill in the list. Click the skill and then click `Enabled`, then it will take you to an Amazon login page. Login with your Amazon account (To get the Oauth token)(The Amazon account of the Alexa Echo should be the same as the Amazon Developer account)
+
+### Configure the Amazon Lambda Function
+
+In previous section we created an empty Lambda Function. Now let's configure it. 
+
+First we need to create a trigger for the Lambda function.
+
+1. Go back to the Lambda page, click into the function we created
+2. go to tab `Triggers`, and click add triggers:
+![lambda2-1](https://cloud.githubusercontent.com/assets/1740687/23981175/fa65bc16-09da-11e7-8a23-1a6ee05bbd25.png)
+3. add a Amazon Smart Home trigger, the `Application Id` is the skill ID we created in the last section.
+![lambda2-2](https://cloud.githubusercontent.com/assets/1740687/23981198/1bb9cf10-09db-11e7-83f8-be3b924ec9d0.png)
+
+Click `submit`, and the trigger will be created. 
+
 
 
 
