@@ -188,6 +188,13 @@ After setup the two features above, we need to find our external IP address (The
 
 
 ## Amazon Smart Home API
+
+### Create an Amazon Oauth Profile
+
+In this section, we'll create an Amazon Oauth Profile for later usage. Oauth is a standard protocal for third party to get access a user's account information without exposing the user's password. For example, a lot of apps uses `Facebook Login`, or `Google Login` as their registration flow, the base of which is Oauth. In this tutorial we'll use Amazon's service as our Oauth server. 
+
+
+
 [Amazon Smart Home API](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/overviews/understanding-the-smart-home-skill-api#undefined)
 [Amazon OAUTH setup](https://developer.amazon.com/blogs/post/Tx3CX1ETRZZ2NPC/Alexa-Account-Linking-5-Steps-to-Seamlessly-Link-Your-Alexa-Skill-with-Login-wit)
 
