@@ -268,7 +268,7 @@ First we need to create a trigger for the Lambda function.
 
 Click `submit`, and the trigger will be created. 
 
-
+Now let's import the code "lambda_app.py" into the "code" s
 
 
 [Amazon Smart Home API](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/overviews/understanding-the-smart-home-skill-api#undefined)

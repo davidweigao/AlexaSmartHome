@@ -1,12 +1,8 @@
 import urllib2
 import os
 import json
-from threading import Thread
 
-class AdditionalApplicanceDetails:
-    def __init__(self,id):
-        self.id = id
-
+# Class to define a home device that to be controlled by Alexa. eg. Lamp
 class AlexaHomeApp:
     def __init__(self, applianceId, name, id):
         self.applianceId = applianceId
@@ -17,17 +13,18 @@ class AlexaHomeApp:
         self.friendlyName = name
         self.isReachable = True
         self.actions = ["turnOn", "turnOff"]
-        self.additionalApplianceDetails = AdditionalApplicanceDetails(id)
+        self.additionalApplianceDetails = {'id':id}
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__)
 
+# The function that Lambad will call to handle any events.
 def lambda_handler(event, context):
     eventname = event['header']['namespace']
     if eventname == 'Alexa.ConnectedHome.Discovery':
         return handleDiscovery()
     elif eventname == 'Alexa.ConnectedHome.Control':
-        return handleControl(event)
+        return handleControl(event) 
 
 bigLightOnly = AlexaHomeApp("only1", "light only", "light1")
 smallLightOnly = AlexaHomeApp("only2", "small only", "light2")
@@ -40,17 +37,14 @@ windowLight = AlexaHomeApp("light4", "window light", "light4")
 allLights = AlexaHomeApp("light1234", "all the lights", "light1234")
 
 base_url = os.environ['BASE_URL']
-
-RF1_ON = '1332531'
-RF1_OFF = '1332540'
-RF2_ON = '1332675'
-RF2_OFF = '1332684'
-RF3_ON = '1332995'
-RF3_OFF = '1333004'
-RF4_ON = '1334531'
-RF4_OFF = '1334540'
-RF5_ON = '1340675'
-RF5_OFF = '1340684'
+RF1_ON = os.environ['RF1_ON']
+RF1_OFF = os.environ['RF1_OFF']
+RF2_ON = os.environ['RF2_ON']
+RF2_OFF = os.environ['RF2_OFF']
+RF3_ON = os.environ['RF3_ON']
+RF3_OFF = os.environ['RF3_OFF']
+RF4_ON = os.environ['RF4_ON']
+RF4_OFF = os.environ['RF4_OFF']
 RF_ON = "on"
 RF_OFF = "off"
 
@@ -63,7 +57,8 @@ RF_MAP = {"light1": LIGHT1,
           "light3": LIGHT3,
           "light4": LIGHT4, }
 
-
+# This function return all the devices in a JSON body.
+# see document in https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/smart-home-skill-api-reference#discovery-messages
 def handleDiscovery():
     header = {
         "namespace": "Alexa.ConnectedHome.Discovery",
@@ -71,23 +66,40 @@ def handleDiscovery():
         "payloadVersion": "2"
     }
 
-    payload = {"discoveredAppliances": [bigLight, smallLight, windowLight, deskLight, allLights, bigLightOnly, smallLightOnly, deskLightOnly, windowLightOnly]}
+    payload = {"discoveredAppliances": 
+        [
+            bigLight.__dict__,
+            smallLight.__dict__,
+            windowLight.__dict__,
+            deskLight.__dict__,
+            allLights.__dict__, 
+            bigLightOnly.__dict__, 
+            smallLightOnly.__dict__, 
+            windowLightOnly.__dict__, 
+            deskLightOnly.__dict__
+        ]
+    }
 
     response = {
         'header': header,
         'payload': payload
     }
-    return json.dumps(response, default=lambda o: o.__dict__)
+    return response
 
+# This is the function to handle the event request. The event will be generated when you talk to Alexa Echo with a valid request.
+# See https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/smart-home-skill-api-reference#onoff-messages
 def handleControl(event):
     on = RF_ON
     name = "TurnOnConfirmation"
+
     event_name = event['header']['name']
     if event_name == 'TurnOnRequest':
         on = RF_ON
+        name = "TurnOnConfirmation"
     elif event_name == 'TurnOffRequest':
         on = RF_OFF
         name = "TurnOffConfirmation"
+
     applianceId = event['payload']['appliance']['applianceId']
     if applianceId == allLights.applianceId:
         rf_list = map(lambda m: m[on], RF_MAP.values())
@@ -111,15 +123,12 @@ def handleControl(event):
         'payload': {}
     }
 
-
-
-def send_request_async(id, on):
-    Thread(target=send_request, args=(id, on)).start()
-
+# Send the HTTP request to Raspberry Pi server
 def send_request(id, on):
     url = base_url + "/rf?frequency=" + RF_MAP[id][on]
     urllib2.urlopen(url)
 
+# Since our Raspberry Pi server support batch, this is the command for sending multiple RF transmitter request in one Http Request.
 def send_request_batch(frequency_list):
     url = base_url + "/rf?frequency=" + ','.join(frequency_list)
     urllib2.urlopen(url)
