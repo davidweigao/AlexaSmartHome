@@ -268,12 +268,16 @@ First we need to create a trigger for the Lambda function.
 
 Click `submit`, and the trigger will be created. 
 
-Now let's import the code "lambda_app.py" into the "code" s
+Now let's import the code "lambda_app.py" into the "code" section, add add the environement variables below. The env variables are your external ip address and the RF numbers of the RF switches. See previous sections to know how to get them.
+![lambdacode](https://cloud.githubusercontent.com/assets/1740687/24024923/6d212b3e-0a8d-11e7-9c9d-65c62ac66f40.png)
 
+Click save, and everything should just work now. You need to read the python code to change the name of the light/lamp in your room, change them accordingly, and try say "Alexa, turn on the [lamp name]" to Alexa Echo.
 
+### Reference
+[Blog about controlling RF switches with Raspberry Pi](https://www.samkear.com/hardware/control-power-outlets-wirelessly-raspberry-pi)
 [Amazon Smart Home API](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/overviews/understanding-the-smart-home-skill-api#undefined)
 [Amazon OAUTH setup](https://developer.amazon.com/blogs/post/Tx3CX1ETRZZ2NPC/Alexa-Account-Linking-5-Steps-to-Seamlessly-Link-Your-Alexa-Skill-with-Login-wit)
 
 # Conclusion
 
-This 
+This tutorial only described the simple flow of building the system, to know more and deeper about how each part works requires a lot more reading on the specific object. I hope whoever read this and does the project could enjoy the voice controlled smart home and maybe try build something more on top of it.
