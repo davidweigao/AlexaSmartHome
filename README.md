@@ -274,9 +274,10 @@ Now let's import the code "lambda_app.py" into the "code" section, add add the e
 Click save, and everything should just work now. You need to read the python code to change the name of the light/lamp in your room, change them accordingly, and try say "Alexa, turn on the [lamp name]" to Alexa Echo.
 
 ### Reference
-[Blog about controlling RF switches with Raspberry Pi](https://www.samkear.com/hardware/control-power-outlets-wirelessly-raspberry-pi)
-[Amazon Smart Home API](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/overviews/understanding-the-smart-home-skill-api#undefined)
-[Amazon OAUTH setup](https://developer.amazon.com/blogs/post/Tx3CX1ETRZZ2NPC/Alexa-Account-Linking-5-Steps-to-Seamlessly-Link-Your-Alexa-Skill-with-Login-wit)
+
+1. [Blog about controlling RF switches with Raspberry Pi](https://www.samkear.com/hardware/control-power-outlets-wirelessly-raspberry-pi)
+2. [Amazon Smart Home API](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/overviews/understanding-the-smart-home-skill-api#undefined)
+3. [Amazon OAUTH setup](https://developer.amazon.com/blogs/post/Tx3CX1ETRZZ2NPC/Alexa-Account-Linking-5-Steps-to-Seamlessly-Link-Your-Alexa-Skill-with-Login-wit)
 
 # Conclusion
 
