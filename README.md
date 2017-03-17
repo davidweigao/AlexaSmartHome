@@ -1,4 +1,3 @@
-[Still in progress]
 # Alexa Smart Home
 
 Imagine you could turn on and off each lamp in your home by just saying "Alex, turn on the xxx lamp". Imagin in the moring, you could lying on the bed and say "Alexa, turn on the curtain", and let the light wake you up. To me, voice controlled smart home has always been something only in the movie. But now everyone can build it with a low budget.
@@ -13,18 +12,25 @@ https://www.youtube.com/watch?v=PNNSHEmuHxk
 `Data flow chart:`
 <img src=https://cloud.githubusercontent.com/assets/1740687/23840867/28c6e3ae-077f-11e7-891c-3209f4bbded2.png />
 
+This is the final version of the Raspberry Pi Zero + RF transmitter + wifi dongle, in development a Raspberry Pi 3+ and breadboard will be used.
+![img_0501](https://cloud.githubusercontent.com/assets/1740687/24025427/a8a03a1c-0a90-11e7-9e01-5bc20e9053f3.JPG)
+
 # Hardware
 
 All the hardware components you need to prepare.
 
 ## An Alexa device.
-[img]
+
+![image](https://cloud.githubusercontent.com/assets/1740687/24025171/4173a136-0a8f-11e7-8fa8-ac7b61d4c94b.png)
+
 An Alexa device receives voice command from a human being, and then send it to the cloud service for voice recognition. The voice will eventually be translated to English for further processing.
 
 Technically any Alexa supported device will do. I used an Alexa Echo Dot, because it always wait for command when stand by, which is perfect for smart home. (You could try the iphone app or the web app, which doesn't require you to buy anything, but it's not a good fit for the smart home purpose because you have to open the app every time you want to send a voice command).
 
 ## A Raspberry Pi.
-[img]
+
+![image](https://cloud.githubusercontent.com/assets/1740687/24025184/60159086-0a8f-11e7-9b30-57bb74ef0c21.png)
+
 A Raspberry Pi(RPI) runs an HTTP server, which listen to HTTP requests and send comand to an RF transmitter chip. (There are other components between Alexa and RPI, see Software section)
 
 Using an RPI because it provides a development platform with linux OS and GPIO support, plus the size and price is perfect for this project. Options could be:
@@ -35,16 +41,17 @@ Using an RPI because it provides a development platform with linux OS and GPIO s
 
 ## 433Mhz Rf Transmitter and Receiver chips
 
+![image](https://cloud.githubusercontent.com/assets/1740687/24025204/785f8930-0a8f-11e7-9f4c-93b9a714108d.png)
+
 This kind of chip is available on Amazon or other electrical chip market.
-This is the chip that I use:
-[img]
 
 
 ## 433Mhz based remote outlet, or 433Mhz based home appliance
-[img]
 These are the hardware that you want to voice control.
+
 1. For lamps and other appliance that could only turn on and off, you could connect them with RF remote outlet. I use this one which I bought from Amazon
-[img]
+![ras](https://cloud.githubusercontent.com/assets/1740687/24025394/75692776-0a90-11e7-973b-491d4766ff17.jpg)
+
 2. If you have other home appliance that support 433Mhz RF signal, it's the same. (433Mhz radio requency is a very common standard for home devices, just to name a few, shelf speaker, remote controlled curtain, garage door remote...)
 
 
